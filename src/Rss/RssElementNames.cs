@@ -16,6 +16,7 @@ namespace Microsoft.SyndicationFeed.Rss
         public const string Cloud = "cloud";
         public const string Comments = "comments";
         public const string Copyright = "copyright";
+        public const string Creator = "creator";
         public const string Description = "description";
         public const string Docs = "docs";
         public const string Enclosure = "enclosure";

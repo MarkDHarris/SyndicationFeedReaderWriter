@@ -108,7 +108,7 @@ namespace Microsoft.SyndicationFeed.Rss
 
             foreach (var field in content.Fields)
             {
-                if (field.Namespace != RssConstants.Rss20Namespace && field.Name != "group")
+                if (field.Namespace != RssConstants.Rss20Namespace && field.Name != "group" && field.Name != "creator")
                 {
                     continue;
                 }
@@ -195,7 +195,17 @@ namespace Microsoft.SyndicationFeed.Rss
 
                             item.AddLink(link);
                         }
-                        break;                    
+                        break;
+
+                    //
+                    // Contributor used by Channel 9
+                    case RssElementNames.Creator:
+                        if (!string.IsNullOrWhiteSpace(field.Value))
+                        {
+                            item.AddContributor(new SyndicationPerson(field.Value, string.Empty));
+                        }
+
+                        break;
 
                     default:
                         break;
