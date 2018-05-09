@@ -108,7 +108,7 @@ namespace Microsoft.SyndicationFeed.Rss
 
             foreach (var field in content.Fields)
             {
-                if (field.Namespace != RssConstants.Rss20Namespace)
+                if (field.Namespace != RssConstants.Rss20Namespace && field.Name != "group")
                 {
                     continue;
                 }
@@ -176,6 +176,26 @@ namespace Microsoft.SyndicationFeed.Rss
                             item.Published = dt;
                         }
                         break;
+
+                    //
+                    // Media Group used by Channel 9
+                    case RssElementNames.Group:
+                        foreach (var f in field.Fields)
+                        {
+                            var link = (SyndicationLink)CreateLink(f);
+
+                            var url = f.Attributes.Where(a => a.Name == "url").FirstOrDefault()?.Value;
+                            if (!string.IsNullOrEmpty(url))
+                            {
+                                link.Title = url.Substring(url.LastIndexOf("/", StringComparison.CurrentCultureIgnoreCase) + 1); ;
+                            }
+
+                            var size = f.Attributes.Where(a => a.Name == "fileSize").FirstOrDefault()?.Value;
+                            link.Length = long.Parse(size);
+
+                            item.AddLink(link);
+                        }
+                        break;                    
 
                     default:
                         break;

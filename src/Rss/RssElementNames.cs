@@ -20,6 +20,7 @@ namespace Microsoft.SyndicationFeed.Rss
         public const string Docs = "docs";
         public const string Enclosure = "enclosure";
         public const string Generator = "generator";
+        public const string Group = "group";
         public const string Guid = "guid";
         public const string Image = "image";
         public const string Item = "item";
